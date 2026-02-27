@@ -35,8 +35,12 @@ function {{.Bind}}
     switch "$argv[1]"
         case ".."
             builtin cd ..
-        case "-"
-            builtin cd -
+        case -
+            if test "$__fish_cd_direction" = next
+                nextd
+            else
+                prevd
+            end
         case "."
             set argv[1] (__jump_base_dir)
             set -l dir (jump cd $argv)

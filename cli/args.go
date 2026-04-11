@@ -110,10 +110,6 @@ func (a Args) CommandName() string {
 }
 
 func nameValue(arg string) (name string, value string) {
-	parts := strings.SplitN(arg, "=", 2)
-	if len(parts) == 1 {
-		return parts[0], ""
-	}
-
-	return parts[0], parts[1]
+	name, value, _ = strings.Cut(arg, "=")
+	return
 }

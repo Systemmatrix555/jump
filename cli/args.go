@@ -50,7 +50,7 @@ func (a Args) Rest() Args {
 // as is.
 func (a Args) Has(option string) bool {
 	for i := 0; i < len(a); i++ {
-		name, _ := nameValue(a[i])
+		name, _, _ := strings.Cut(a[i], "=")
 		if name == option {
 			return true
 		}
@@ -66,7 +66,7 @@ func (a Args) Has(option string) bool {
 // them.
 func (a Args) Get(option, defaultValue string) string {
 	for i := 0; i < len(a); i++ {
-		name, value := nameValue(a[i])
+		name, value, _ := strings.Cut(a[i], "=")
 
 		if name == option {
 			if value != "" {
@@ -107,9 +107,4 @@ func (a Args) CommandName() string {
 	}
 
 	return ""
-}
-
-func nameValue(arg string) (name string, value string) {
-	name, value, _ = strings.Cut(arg, "=")
-	return
 }

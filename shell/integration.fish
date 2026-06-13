@@ -31,23 +31,26 @@ function __jump_base_dir
     end
 end
 
+function __jump_cd
+    set -l previous $PWD
+    builtin cd $argv
+    and test "$PWD" != "$previous"
+    and set -gx OLDPWD $previous
+end
+
 function {{.Bind}}
     switch "$argv[1]"
         case ".."
-            builtin cd ..
+            __jump_cd ..
         case -
-            if test "$__fish_cd_direction" = next
-                nextd
-            else
-                prevd
-            end
+            test -n "$OLDPWD"; and __jump_cd $OLDPWD
         case "."
             set argv[1] (__jump_base_dir)
             set -l dir (jump cd $argv)
-            test -d "$dir"; and builtin cd "$dir"
+            test -d "$dir"; and __jump_cd "$dir"
         case '*'
             set -l dir (jump cd $argv)
-            test -d "$dir"; and builtin cd "$dir"
+            test -d "$dir"; and __jump_cd "$dir"
     end
 end
 

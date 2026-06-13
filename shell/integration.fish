@@ -21,7 +21,7 @@ function __jump_hint
 end
 
 function __jump_base_dir
-    set -l base_dir $JUMP_BASE_DIR
+    set -l base_dir $JUMP_BASED_PATH
     if test -n "$base_dir"
         echo "$base_dir"
     else if set -l git_dir (command git rev-parse --show-toplevel 2>/dev/null)

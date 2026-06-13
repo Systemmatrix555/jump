@@ -147,7 +147,7 @@ Useful for monorepos with many repeated directory names.
 
 Based mode determines the base directory using this priority:
 
-1. `$JUMP_BASED_PATH` environment variable (or `$JUMP_BASE_DIR` in fish)
+1. `$JUMP_BASED_PATH` environment variable
 2. Git repository root (detected via `git rev-parse --show-toplevel`)
 3. Current directory (fallback when no git repo is detected)
 

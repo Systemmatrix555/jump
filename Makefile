@@ -26,6 +26,14 @@ build.arm:
 build.windows:
 	@env GOOS=windows GOARCH=amd64 go build -o jump.exe
 
+.PHONY: build.osx
+build.osx:
+	@env GOOS=darwin GOARCH=amd64 go build -o jump
+
+.PHONY: build.osx.arm
+build.osx.arm:
+	@env GOOS=darwin GOARCH=arm64 go build -o jump
+
 .PHONY: test
 test:
 	@rm -rf ./config/testdata/.tmp*
@@ -40,7 +48,7 @@ clean:
 	@rm -f jump*
 
 .PHONY: pkg
-pkg: pkg.deb pkg.rpm pkg.linux pkg.linux.arm pkg.windows
+pkg: pkg.deb pkg.rpm pkg.linux pkg.linux.arm pkg.windows pkg.osx pkg.osx.arm
 
 .PHONY: pkg.deb
 pkg.deb: man build.linux
@@ -79,6 +87,14 @@ pkg.linux.arm: man build.linux.arm
 .PHONY: pkg.windows
 pkg.windows: man build.windows
 	@mv jump.exe jump_windows_amd64_binary.exe
+
+.PHONY: pkg.osx
+pkg.osx: build.osx
+	@mv jump jump_osx
+
+.PHONY: pkg.osx.arm
+pkg.osx.arm: build.osx.arm
+	@mv jump jump_osx_arm64
 
 .PHONY: man
 man: ronn

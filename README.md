@@ -33,6 +33,12 @@ Packages are available on the following platforms:
 
 </details>
 
+Or install the latest release for the current user into `~/.local/bin`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gsamokovarov/jump/main/install.sh | bash
+```
+
 ---
 
 # Shell Integration
